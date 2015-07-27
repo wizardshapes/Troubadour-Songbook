@@ -3,6 +3,7 @@ package com.wizardshapes.troubadour;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ListFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wizardshapes.troubadour.db.Song;
+import com.wizardshapes.troubadour.db.Track;
 import com.wizardshapes.troubadour.db.TroubDAO;
 
 import java.sql.SQLException;
@@ -37,6 +40,7 @@ public class SongDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     EditText titleView;
+    ListView trackList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -77,6 +81,11 @@ public class SongDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_song_detail, container, false);
         titleView = (EditText)rootView.findViewById(R.id.song_detail);
+        trackList = (ListView)rootView.findViewById(R.id.trackList);
+        ArrayAdapter<Track> adapter = new ArrayAdapter<Track>(this.getActivity(),
+                R.layout.track_row, R.id.secondLine, song.getTracks());
+
+        trackList.setAdapter(adapter);
 
         titleView.addTextChangedListener(new TextWatcher() {
             @Override

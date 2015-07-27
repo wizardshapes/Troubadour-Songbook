@@ -81,7 +81,9 @@ public class TroubDAO {
                 Song.COLUMN_ID + " = " + songId
                 , null, null, null, null);
         cursor.moveToFirst();
-        return cursorToSong(cursor);
+        Song song = cursorToSong(cursor);
+        song.getTracks().addAll(getSongTracks(song));
+        return song;
     }
 
     public void updateSong(Song song){
