@@ -39,7 +39,7 @@ public class SongDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    EditText titleView;
+    //EditText titleView;
     ListView trackList;
 
     /**
@@ -80,37 +80,37 @@ public class SongDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_song_detail, container, false);
-        titleView = (EditText)rootView.findViewById(R.id.song_detail);
+        //titleView = (EditText)rootView.findViewById(R.id.song_detail);
         trackList = (ListView)rootView.findViewById(R.id.trackList);
         ArrayAdapter<Track> adapter = new ArrayAdapter<Track>(this.getActivity(),
-                R.layout.track_row, R.id.secondLine, song.getTracks());
+                R.layout.track_row, R.id.firstLine, song.getTracks());
 
         trackList.setAdapter(adapter);
 
-        titleView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                song.setTitle(s.toString());
-                dao.updateSong(song);
-                getActivity().setTitle(s.toString());
-            }
-        });
+//        titleView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                song.setTitle(s.toString());
+//                dao.updateSong(song);
+//                getActivity().setTitle(s.toString());
+//            }
+//        });
 
 
         // Show the dummy content as text in a TextView.
         if (song != null) {
             this.getActivity().setTitle(song.getTitle());
-            titleView.setText(song.getTitle());
+            //titleView.setText(song.getTitle());
         }
 
         return rootView;

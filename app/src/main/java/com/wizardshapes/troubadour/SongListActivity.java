@@ -3,6 +3,12 @@ package com.wizardshapes.troubadour;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.wizardshapes.troubadour.db.Song;
+import com.wizardshapes.troubadour.db.TroubDAO;
+
+import java.sql.SQLException;
 
 
 /**
@@ -22,18 +28,37 @@ import android.os.Bundle;
  * to listen for item selections.
  */
 public class SongListActivity extends Activity
-        implements SongListFragment.Callbacks {
+        implements SongListFragment.Callbacks, NewSongDialogFragment.NoticeDialogListener {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    private TroubDAO dao;
+
+    public void onDialogPositiveClick(NewSongDialogFragment dialog){
+        Song song = dao.createSong(dialog.title);
+        //ArrayAdapter<Song> list = (ArrayAdapter<Song>)getListAdapter();
+        //list.add(song);
+        onItemSelected(String.valueOf(song.getId()));
+    }
+    public void onDialogNegativeClick(NewSongDialogFragment dialog){
+        dialog.getDialog().cancel();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
+
+        dao = new TroubDAO(this);
+        try {
+            dao.open();
+        }catch(SQLException e){
+            String error = "Unable to open TroubDAO" + e.getStackTrace();
+            Log.e(SongListFragment.class.getName(), error);
+        }
 
         if (findViewById(R.id.song_detail_container) != null) {
             // The detail container view will be present only in the
