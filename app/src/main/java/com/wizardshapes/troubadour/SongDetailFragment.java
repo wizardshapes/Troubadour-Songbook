@@ -82,8 +82,7 @@ public class SongDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_song_detail, container, false);
         //titleView = (EditText)rootView.findViewById(R.id.song_detail);
         trackList = (ListView)rootView.findViewById(R.id.trackList);
-        ArrayAdapter<Track> adapter = new ArrayAdapter<Track>(this.getActivity(),
-                R.layout.track_row, R.id.firstLine, song.getTracks());
+        TrackListAdapter adapter = new TrackListAdapter(this.getActivity(),song.getTracks(),null);
 
         trackList.setAdapter(adapter);
 

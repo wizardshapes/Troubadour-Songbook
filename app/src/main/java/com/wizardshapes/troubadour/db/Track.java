@@ -31,6 +31,10 @@ public class Track {
     private String notes;
     private int songId;
 
+
+
+    private boolean recordEnabled = false;
+
     public long getId() {
         return id;
     }
@@ -74,6 +78,14 @@ public class Track {
     @Override
     public String toString(){
         return getName();
+    }
+
+    public boolean isRecordEnabled() {
+        return recordEnabled;
+    }
+
+    public void setRecordEnabled(boolean recordEnabled) {
+        this.recordEnabled = recordEnabled;
     }
 
 
